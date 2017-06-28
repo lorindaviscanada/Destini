@@ -31,28 +31,79 @@ class ViewController: UIViewController {
     @IBOutlet weak var bottomButton: UIButton!      // Has TAG = 2
     @IBOutlet weak var storyTextView: UILabel!
     
-    // TODO Step 5: Initialise instance variables here
-    
-    
+    @IBOutlet weak var restartButton: UIButton!     // has TAG = 3
+    var currentStoryIndex: Int = 1
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        // TODO Step 3: Set the text for the storyTextView, topButton, bottomButton, and to T1_Story, T1_Ans1, and T1_Ans2
-        
+        startStory()
     }
 
+    func startStory() {
+        updateStory(story: story1, answera: answer1a, answerb: answer1b)
+        hideButtons(isHidden: false)
+        currentStoryIndex = 1
+        restartButton.isHidden = true
+    }
+    
+    func updateStory(story: String, answera: String, answerb: String) {
+        storyTextView.text = story
+        topButton.setTitle(answera, for: .normal)
+        bottomButton.setTitle(answerb, for: .normal)
+    }
+    
+    func endStory() {
+        hideButtons(isHidden: true)
+        restartButton.isHidden = false
+    }
+    
+    func hideButtons(isHidden: Bool){
+        topButton.isHidden = isHidden
+        bottomButton.isHidden = isHidden
+    }
     
     // User presses one of the buttons
     @IBAction func buttonPressed(_ sender: UIButton) {
     
-        // TODO Step 4: Write an IF-Statement to update the views
+        if sender.tag == 1  {
+            if currentStoryIndex == 1 {
+                currentStoryIndex = 3
+                updateStory(story: story3, answera: answer3a, answerb: answer3b)
+            }
+            else if currentStoryIndex == 2 {
+                currentStoryIndex = 3
+                updateStory(story: story3, answera: answer3a, answerb: answer3b)
+            }
+            else if currentStoryIndex == 3 {
+                currentStoryIndex = 6
+                updateStory(story: story6, answera: "", answerb: "")
+                endStory()
+            }
+        }
+        else if sender.tag == 2 {
+            if currentStoryIndex == 1 {
+                currentStoryIndex = 2
+                updateStory(story: story2, answera: answer2a, answerb: answer2b)
+            }
+            else if currentStoryIndex == 2 {
+                currentStoryIndex = 4
+                updateStory(story: story4, answera: "", answerb: "")
+                endStory()
                 
-        // TODO Step 6: Modify the IF-Statement to complete the story
+            }
+            else if currentStoryIndex == 3 {
+                currentStoryIndex = 5
+                updateStory(story: story5, answera: "", answerb: "")
+                endStory()
+            }
+            
+        }
+        else {
+            startStory()
+        }
         
-    
     }
     
     
